@@ -20,10 +20,11 @@ export default function SignUpDisplay(){
                 email: email,
                 name: name,
                 password: password
-            }).catch(() => {
+            }).then(() => {navigate("/")}).catch((err) => {
                 alert("Cadastro não efetuado! Tente novamente!");
                 setIsLoading(false);
-            }).then(() => {navigate("/")});
+                console.error(err);
+            });
         }else{
             alert('Senhas não coincidem! Digite novamente!');
             setIsLoading(false);

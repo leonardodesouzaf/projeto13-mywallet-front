@@ -14,9 +14,9 @@ export default function HomeDisplay() {
     const [refreshTransactionsList, setRefreshTransactionsList] = useState(false);
     useEffect(() => {
         let totalCounter = 0;
-        getTransactions(tasks).catch(() => {
+        getTransactions(tasks.token).then(renderTransactions).catch(() => {
                 alert("Erro ao carregar as transações! Tente novamente!");
-        }).then(renderTransactions);
+        });
         function renderTransactions(answer) {
             let transactionsList = answer.data;
             if (transactionsList.length === 0) {
@@ -25,8 +25,7 @@ export default function HomeDisplay() {
                         Não há registros de entrada ou saída
                     </NonTransactionsText>
                 );
-            }
-            if (transactionsList.length !== 0) {
+            } else {
                 setTransactionsContent(
                     <>
                         {transactionsList.map((transaction,index) => {
@@ -39,12 +38,35 @@ export default function HomeDisplay() {
         }
     }, [refreshTransactionsList]);
     return (
-        <>
-            fala caramujo
-        </>
+        <Content>
+            <TitleDiv>
+                <p>Olá, Fulano</p>
+            </TitleDiv>
+        </Content>
     );
 }
 
+const TitleDiv = styled.div`
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    font-family: 'Raleway';
+    font-style: normal;
+    font-weight: 700;
+    font-size: 26px;
+    line-height: 31px;
+    color: #FFFFFF;
+`;
+
+const Content = styled.div`
+    width: 100vw;
+    height: 100vh;
+	display: flex;
+    flex-direction: column;
+    align-items: center;
+    box-sizing: border-box;
+    padding: 25px;
+`;
 
 const NonTransactionsText = styled.div`
     font-family: 'Raleway';

@@ -8,16 +8,19 @@ export function getTransactions(token){
         `${URL}/home`,
         headerCreator(token)
     );
+    return requisition;
 }
 export function postSignIn(body){
     const requisition = axios.post(
         `${URL}/sign-in`,
         body
     );
+    return requisition;
 }
 export function postSignUp(body){
     const requisition = axios.post(
         `${URL}/sign-up`,
         body
     );
+    return requisition;
 }

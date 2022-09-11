@@ -18,12 +18,13 @@ export default function SignInDisplay(){
 		postSignIn({
 			email: email,
 			password: password
-		}).catch(() => {
-            alert("Login não efetuado! Tente novamente!");
-            setIsLoading(false);
-        }).then((answer) => {
+		}).then((answer) => {
             setTasks(answer.data);
             navigate("/home");
+        }).catch((err) => {
+            alert("Login não efetuado! Tente novamente!");
+            setIsLoading(false);
+            console.error(err);
         });
     }
     return(
