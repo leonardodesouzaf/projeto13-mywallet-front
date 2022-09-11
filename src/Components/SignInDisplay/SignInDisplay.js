@@ -1,10 +1,10 @@
 import styled from 'styled-components';
 import { useNavigate , Link } from "react-router-dom";
 import { useState } from "react";
-import axios from "axios";
 import { useContext } from "react";
 import UserContext from "../../contexts/UserContext";
 import { ThreeDots } from "react-loader-spinner";
+import { postSignIn } from '../../service/api';
 
 export default function SignInDisplay(){
     const { tasks, setTasks } = useContext(UserContext);
@@ -15,15 +15,13 @@ export default function SignInDisplay(){
     function logIn (event) {
         event.preventDefault();
         setIsLoading(true);
-		const requisition = axios.post("https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/auth/login", {
+		postSignIn({
 			email: email,
 			password: password
-		});
-        requisition.catch(() => {
+		}).catch(() => {
             alert("Login não efetuado! Tente novamente!");
             setIsLoading(false);
-        });
-        requisition.then((answer) => {
+        }).then((answer) => {
             setTasks(answer.data);
             navigate("/home");
         });
