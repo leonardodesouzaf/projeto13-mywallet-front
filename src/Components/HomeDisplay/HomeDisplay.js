@@ -14,6 +14,7 @@ export default function HomeDisplay() {
     const [refreshTransactionsList, setRefreshTransactionsList] = useState(false);
     useEffect(() => {
         let totalCounter = 0;
+        let isNegative = false;
         getTransactions(tasks.token).then(renderTransactions).catch(() => {
                 alert("Erro ao carregar as transações! Tente novamente!");
         });
@@ -30,17 +31,33 @@ export default function HomeDisplay() {
                 );
             } else {
                 setTransactionsContent(
+                    <>
                     <TransactionsDiv>
                         {transactionsList.map((transaction,index) => {
                             let valueNumber = parseFloat(transaction.value);
                             totalCounter += valueNumber;
+                            if(totalCounter<0){
+                                isNegative = true;
+                            }else{
+                                isNegative = false;
+                            }
                             return(<Transaction key={index} date={transaction.date} description={transaction.description} value={transaction.value} type={transaction.type} />);
                         })}
+                    </TransactionsDiv>
+                    { isNegative ? (
+                        <BalanceDivN>
+                            <Balance>SALDO</Balance>
+                            {totalCounter.toFixed(2)}
+                        </BalanceDivN>
+                        )
+                        :
+                        (
                         <BalanceDiv>
                             <Balance>SALDO</Balance>
-                            {totalCounter}
+                            {totalCounter.toFixed(2)}
                         </BalanceDiv>
-                    </TransactionsDiv>
+                    )}
+                    </>
                 )
             }
         }
@@ -89,11 +106,8 @@ const BalanceDiv = styled.div`
     display: flex;
     justify-content: space-between;
     width: 100%;
-    height: 21px;
+    height: 30px;
     margin-bottom: 10px;
-    position: absolute;
-    bottom: 0px;
-    left: 0px;
     box-sizing: border-box;
     padding-right: 10px;
     font-family: 'Raleway';
@@ -101,6 +115,29 @@ const BalanceDiv = styled.div`
     font-weight: 400;
     font-size: 17px;
     line-height: 20px;
+    color: #03AC00;
+    background-color: #FFFFFF;
+    border-bottom-left-radius: 5px;
+    border-bottom-right-radius: 5px;
+`;
+
+const BalanceDivN = styled.div`
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    height: 30px;
+    margin-bottom: 10px;
+    box-sizing: border-box;
+    padding-right: 10px;
+    font-family: 'Raleway';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 17px;
+    line-height: 20px;
+    color: #C70000;
+    background-color: #FFFFFF;
+    border-bottom-left-radius: 5px;
+    border-bottom-right-radius: 5px;
 `;
 
 const ButtonText = styled.div`
@@ -181,13 +218,15 @@ const NonTransactionsDiv = styled.div`
 
 const TransactionsDiv = styled.div`
     background: #FFFFFF;
-    border-radius: 5px;
+    border-top-left-radius: 5px;
+    border-top-right-radius: 5px;
     display: flex;
     flex-direction: column;
     align-items: center;
     width: 100%;
-    height: 446px;
+    height: 416px;
     box-sizing: border-box;
     padding: 23px 10px 10px 10px;
     position: relative;
+    overflow: auto;
 `;
