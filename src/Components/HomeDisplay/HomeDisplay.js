@@ -32,29 +32,41 @@ export default function HomeDisplay() {
                 setTransactionsContent(
                     <TransactionsDiv>
                         {transactionsList.map((transaction,index) => {
-                            totalCounter += transaction.value;
+                            let valueNumber = parseFloat(transaction.value);
+                            totalCounter += valueNumber;
                             return(<Transaction key={index} date={transaction.date} description={transaction.description} value={transaction.value} type={transaction.type} />);
                         })}
+                        <BalanceDiv>
+                            <Balance>SALDO</Balance>
+                            {totalCounter}
+                        </BalanceDiv>
                     </TransactionsDiv>
                 )
             }
         }
     }, [refreshTransactionsList]);
+    function getOff(){
+        navigate('/');
+    }
+    function getIn(){
+        navigate('/in');
+    }
+    function getOut(){
+        navigate('/out');
+    }
     return (
         <Content>
             <TitleDiv>
                 <p>Olá, {tasks.name}</p>
-                <Link to="/">
-                    <ion-icon name="log-out-outline"></ion-icon>
-                </Link>
+                <ion-icon name="log-out-outline" onClick={getOff}></ion-icon>
             </TitleDiv>
             {transactionsContent}
             <ButtonsDiv>
-                <ButtonTransaction>
+                <ButtonTransaction onClick={getIn}>
                     <ion-icon name="add-circle-outline"></ion-icon>
                     <ButtonText>Nova entrada</ButtonText>
                 </ButtonTransaction>
-                <ButtonTransaction>
+                <ButtonTransaction onClick={getOut}>
                     <ion-icon name="remove-circle-outline"></ion-icon>
                     <ButtonText>Nova saída</ButtonText>
                 </ButtonTransaction>
@@ -62,6 +74,34 @@ export default function HomeDisplay() {
         </Content>
     );
 }
+
+const Balance = styled.div`
+    font-family: 'Raleway';
+    font-style: normal;
+    font-weight: 700;
+    font-size: 17px;
+    line-height: 20px;
+    color: #000000;
+    margin-left: 10px;
+`;
+
+const BalanceDiv = styled.div`
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    height: 21px;
+    margin-bottom: 10px;
+    position: absolute;
+    bottom: 0px;
+    left: 0px;
+    box-sizing: border-box;
+    padding-right: 10px;
+    font-family: 'Raleway';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 17px;
+    line-height: 20px;
+`;
 
 const ButtonText = styled.div`
     font-size: 17px;
@@ -136,6 +176,7 @@ const NonTransactionsDiv = styled.div`
     align-items: center;
     width: 100%;
     height: 446px;
+    position: relative;
 `;
 
 const TransactionsDiv = styled.div`
@@ -144,8 +185,9 @@ const TransactionsDiv = styled.div`
     display: flex;
     flex-direction: column;
     align-items: center;
-    width: 86.9%;
+    width: 100%;
     height: 446px;
     box-sizing: border-box;
     padding: 23px 10px 10px 10px;
+    position: relative;
 `;

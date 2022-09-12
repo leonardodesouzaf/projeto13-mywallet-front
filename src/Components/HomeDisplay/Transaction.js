@@ -1,13 +1,11 @@
 import styled from 'styled-components';
 import { useState } from "react";
 export default function Transaction(props){
-    const [isGreen, setIsGreen] = useState(false);
+    let isGreen = false;
     if(props.type === "in"){
-        setIsGreen(true);
-    }else{
-        setIsGreen(false);
+        isGreen = true;
     }
-    return(
+    return( 
         <>
             {isGreen ? (
                 <TransactionDiv>
@@ -34,7 +32,7 @@ export default function Transaction(props){
                         </DescDiv>
                     </DateDescDiv>
                     <TransactionValueOut>
-                        {(props.value)*(-1)}
+                        {((props.value)*(-1)).toFixed(2)}
                     </TransactionValueOut>
                 </TransactionDiv>
             )}
@@ -47,6 +45,7 @@ const TransactionDiv = styled.div`
     justify-content: space-between;
     width: 100%;
     height: 21px;
+    margin-bottom: 12px;
 `;
 
 const DateDescDiv = styled.div`
@@ -56,7 +55,7 @@ const DateDescDiv = styled.div`
 
 const DateDiv = styled.div`
     box-sizing: border-box;
-    margin-left: 12px;
+    margin-left: 0px;
     font-family: 'Raleway';
     font-style: normal;
     font-weight: 400;
@@ -83,6 +82,7 @@ const TransactionValueIn = styled.div`
     font-size: 16px;
     line-height: 19px;
     color: #03AC00;
+    margin-right: 5px;
 `;
 
 const TransactionValueOut = styled.div`
@@ -92,4 +92,5 @@ const TransactionValueOut = styled.div`
     font-size: 16px;
     line-height: 19px;
     color: #C70000;
+    margin-right: 5px;
 `;

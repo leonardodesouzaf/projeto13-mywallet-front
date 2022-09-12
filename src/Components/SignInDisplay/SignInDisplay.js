@@ -27,6 +27,9 @@ export default function SignInDisplay(){
             console.error(err);
         });
     }
+    function getSignUp(){
+        navigate('/sign-up');
+    }
     return(
         <>
             <Content>
@@ -44,9 +47,7 @@ export default function SignInDisplay(){
                     }
                 </Form>
                 
-                <Link to="/sign-up">
-                    <Register>Primeira vez? Cadastre-se!</Register>
-                </Link>
+                <Register onClick={getSignUp}>Primeira vez? Cadastre-se!</Register>
             </Content>
         </>
     )

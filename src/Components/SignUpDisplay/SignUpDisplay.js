@@ -30,6 +30,9 @@ export default function SignUpDisplay(){
             setIsLoading(false);
         };  
     }
+    function getSignIn(){
+        navigate('/');
+    }
     return(
         <>
             <Content>
@@ -48,9 +51,7 @@ export default function SignUpDisplay(){
                     <Button type="submit" disabled={isLoading}>Cadastrar</Button>
                     }
                 </Form>
-                <Link to="/">
-                    <Register>Já tem uma conta? Entre agora!</Register>
-                </Link>
+                <Register onClick={getSignIn}>Já tem uma conta? Entre agora!</Register>
             </Content>
         </>
     )

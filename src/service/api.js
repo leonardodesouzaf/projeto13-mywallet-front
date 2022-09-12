@@ -24,3 +24,21 @@ export function postSignUp(body){
     );
     return requisition;
 }
+
+export function postIn(body,token){
+    const requisition = axios.post(
+        `${URL}/in`,
+        body,
+        headerCreator(token)
+    );
+    return requisition;
+}
+
+export function postOut(body,token){
+    const requisition = axios.post(
+        `${URL}/out`,
+        body,
+        headerCreator(token)
+    );
+    return requisition;
+}
