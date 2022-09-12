@@ -38,6 +38,7 @@ export default function HomeDisplay() {
                             totalCounter += valueNumber;
                             if(totalCounter<0){
                                 isNegative = true;
+                                totalCounter = totalCounter * (-1);
                             }else{
                                 isNegative = false;
                             }

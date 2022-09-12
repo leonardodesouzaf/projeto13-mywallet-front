@@ -31,7 +31,7 @@ export default function InDisplay(){
         <Content>
             <TitleDiv>Nova entrada</TitleDiv> 
             <Form onSubmit={logIn}>
-                <Input placeholder="Valor" disabled={isLoading} type="numeric" step=".01" required onChange={e => setValue(e.target.value)}/>
+                <Input placeholder="Valor" disabled={isLoading} type="numeric" required onChange={e => setValue(e.target.value)}/>
                 <Input placeholder="Descrição" disabled={isLoading} type="text" required onChange={e => setDescription(e.target.value)}/>
                 {isLoading ?
                 <Button disabled><ThreeDots 
